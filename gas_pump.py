@@ -70,6 +70,14 @@ def get_money_pay_after(price, gallons):
     return price * gallons
 
 
+def write_to_history(payment, gas_type, price, gallons, money):
+    time = datetime.now()
+    text = '\n{}, {}, {}, {:.3f}, {:.2f}'.format(time, payment, gas_type,
+                                                 price, gallons, money)
+    with open('history.txt', 'a') as file:
+        file.write(text)
+
+
 def main():
     print('\nWelcome to Gas-Mart!!!\n')
     name = input('What is your name? ')
@@ -95,6 +103,8 @@ def main():
     print('\t${:.2f} per gal'.format(price))
     print('Gallons', round(gallons, 3))
     print('TOTAL:', '${:.2f}'.format(money))
+
+    write_to_history(payment, gas_type, price, gallons, money)
 
 
 if __name__ == '__main__':
